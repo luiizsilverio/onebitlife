@@ -1,9 +1,17 @@
-import React from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import Logo from "../../assets/icons/logo3.png";
+import DefaultButton from "../../components/Common/DefaultButton";
 import LifeStatus from "../../components/Common/LifeStatus";
 
 export default function Start() {
+  const navigation = useNavigation();
+
+  const handleNavExplanation = () => {
+    navigation.navigate('explanation');
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -11,11 +19,20 @@ export default function Start() {
       >
         <View style={{ alignItems: "center" }}>
           <Image source={Logo} style={styles.logo} />
+
           <LifeStatus />
+
           <Text style={styles.description}>
             Vamos transformar sua vida {"\n"} em jogo,
             buscando sempre {"\n"} o melhor nível.
           </Text>
+
+          <DefaultButton
+            buttonText="Continuar"
+            handlePress={handleNavExplanation}
+            width={250}
+            height={50}
+          />
         </View>
 
       </ScrollView>
