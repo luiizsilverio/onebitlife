@@ -1,10 +1,20 @@
-import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect, useRef } from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import ArrowBack from "../../assets/icons/arrowBack.png";
+import SelectHabit from "../../components/SelectHabit";
+import SelectFrequency from "../../components/SelectFrequency";
+import Notification from "../../components/Notification";
+import DatePicker from "../../components/DatePicker";
 
 export default function HabitPage({ route }) {
   const navigation = useNavigation();
   const { create, habit } = route.params;
+  const [habitInput, setHabitInput] = useState();
+  const [frequencyInput, setFrequencyInput] = useState();
+  const [notificationToggle, setNotificationToggle] = useState();
+  const [dayNotification, setDayNotification] = useState();
+  const [timeNotification, setTimeNotification] = useState();
 
   return (
     <View style={styles.container}>
@@ -26,6 +36,39 @@ export default function HabitPage({ route }) {
             <View style={styles.inputContainer}>
               <Text style={styles.area}>{habit?.habitArea}</Text>
             </View>
+
+            <Text style={styles.inputText}>Hábito</Text>
+            <SelectHabit habit={habit} habitInput={setHabitInput} />
+
+            <Text style={styles.inputText}>Frequência</Text>
+            <SelectFrequency
+              habitFrequency={habit?.habitFrequency}
+              frequencyInput={setFrequencyInput}
+            />
+
+            {
+              frequencyInput !== "Mensal" && (
+                <Notification
+                  notificationToggle={notificationToggle}
+                  setNotificationToggle={setNotificationToggle}
+                />
+              )
+            }
+
+            {
+              notificationToggle && (
+                frequencyInput !== "Mensal" && (
+                  <DatePicker
+                    frequency={frequencyInput}
+                    dayNotification={dayNotification}
+                    timeNotification={timeNotification}
+                    setDayNotification={setDayNotification}
+                    setTimeNotification={setTimeNotification}
+                  />
+                )
+              )
+            }
+
           </View>
         </View>
       </ScrollView>

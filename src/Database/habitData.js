@@ -106,4 +106,4 @@ const dataFun = [
   },
 ];
 
-export default { dataMind, dataMoney, dataBody, dataFun };
+export { dataMind, dataMoney, dataBody, dataFun };
