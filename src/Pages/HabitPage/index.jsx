@@ -8,6 +8,7 @@ import Notification from "../../components/Notification";
 import DatePicker from "../../components/DatePicker";
 import UpdateButton from "../../components/UpdateButton";
 import DefaultButton from "../../components/Common/DefaultButton";
+import HabitService from "../../services/HabitService";
 
 export default function HabitPage({ route }) {
   const navigation = useNavigation();
@@ -18,6 +19,10 @@ export default function HabitPage({ route }) {
   const [notificationToggle, setNotificationToggle] = useState();
   const [dayNotification, setDayNotification] = useState();
   const [timeNotification, setTimeNotification] = useState();
+
+  const habitCreated = new Date();
+  const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth()+1}-${habitCreated.getDate()}`;
+
 
   function handleCreateHabit() {
     if (!habitInput || !frequencyInput) {
@@ -30,8 +35,23 @@ export default function HabitPage({ route }) {
       Alert.alert("Informe a frequência e horário");
     }
     else {
-      navigation.navigate("home", {
-        createdHabit: `Criado em ${habit?.habitArea}`
+      HabitService.createHabit({
+        habitArea: habit?.habitArea,
+        habitName: habitInput,
+        habitFrequency: frequencyInput,
+        habitHasNotification: notificationToggle,
+        habitNotificationFrequency: dayNotification,
+        habitNotificationTime: timeNotification,
+        lastCheck: formatDate,
+        daysWithoutChecks: 0,
+        habitIsChecked: 0,
+        progressBar: 1,
+      }).then(() => {
+        Alert.alert("Sucesso na criação do hábito!");
+
+        navigation.navigate("home", {
+          createdHabit: `Criado em ${habit?.habitArea}`
+        })
       })
     }
   }
@@ -39,6 +59,24 @@ export default function HabitPage({ route }) {
   function handleUpdateHabit() {
     if (notificationToggle && !dayNotification && !timeNotification) {
       Alert.alert("Informe a frequência e horário");
+    } else {
+      HabitService.updateHabit({
+        habitArea: habit?.habitArea,
+        habitName: habitInput,
+        habitFrequency: frequencyInput,
+        habitHasNotification: notificationToggle,
+        habitNotificationFrequency: dayNotification,
+        habitNotificationTime: timeNotification,
+        habitNotificationId: notificationToggle ? habitInput : null,
+      }).then(() => {
+        Alert.alert("Sucesso na atualização do hábito");
+        if (!notificationToggle) {
+        } else {
+        }
+        navigation.navigate("home", {
+          updatedHabit: `Updated in ${habit?.habitArea}`,
+        });
+      });
     }
   }
 
@@ -99,7 +137,7 @@ export default function HabitPage({ route }) {
               !create ? (
                 <UpdateButton
                   handleUpdate={handleUpdateHabit}
-                  habitArea={habitArea}
+                  habitArea={habit?.habitArea}
                   habitInput={habitInput}
                 />
               ) : (
