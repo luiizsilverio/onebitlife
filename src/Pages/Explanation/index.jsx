@@ -19,7 +19,7 @@ export default function Explanation() {
     if (!showHome) {
       ChangeNavigationService.setShowHome({ showHome: "true", appStartData })
       .then(() => console.log(`Sucesso! ${showHome} ${appStartData}`))
-      .catch((err)=> console.warn(err));
+      .catch((err)=> console.log(err));
       setShowHome(true);
       handleShowHome();
     }

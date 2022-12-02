@@ -2,21 +2,21 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TrashIcon from "../../assets/icons/trash.png";
-// import HabitsService from "../../../Services/HabitsService";
+import HabitService from "../../services/HabitService";
 
 export default function UpdateButton(props) {
   const { habitInput, handleUpdate, habitArea } = props;
   const navigation = useNavigation();
 
   function handleDeleteHabit() {
-    // HabitsService.deleteByName(habitArea)
-    //   .then(() => {
-    //     Alert.alert("Exclusão feita com sucesso");
-    //     navigation.navigate("home", {
-    //       excludeArea: `${habitArea}`,
-    //     });
-    //   })
-    //   .catch((err) => console.warn(err));
+    HabitService.deleteByName(habitArea)
+      .then(() => {
+        Alert.alert("Exclusão feita com sucesso");
+        navigation.navigate("home", {
+          excludeArea: `${habitArea}`,
+        });
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
