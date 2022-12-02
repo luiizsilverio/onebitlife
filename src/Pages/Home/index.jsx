@@ -1,28 +1,57 @@
-import { useNavigation } from "@react-navigation/native"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { View, ScrollView, Text, TouchableOpacity, StyleSheet } from "react-native";
+
 import LifeStatus from "../../components/Common/LifeStatus";
 import CreateHabit from "../../components/CreateHabit";
 import EditHabit from "../../components/EditHabit";
 import StatusBar from "../../components/StatusBar";
+import ChangeNavigationService from "../../services/ChangeNavigationService";
+import HabitService from "../../services/HabitService";
 
-export default function Home() {
-  const navigation = useNavigation();
+export default function Home({ route }) {
   const [mindHabit, setMindHabit] = useState();
   const [moneyHabit, setMoneyHabit] = useState();
   const [bodyHabit, setBodyHabit] = useState();
   const [funHabit, setFunHabit] = useState();
+  const [robotDaysLife, setRobotDaysLife] = useState();
+
+  const navigation = useNavigation();
+  const today = new Date();
 
   function handleExplanation() {
     navigation.navigate("explanation");
   }
+
+  useEffect(() => {
+    HabitService.findByArea("Mente").then((mind) => {
+      setMindHabit(mind[0]);
+    });
+    HabitService.findByArea("Financeiro").then((money) => {
+      setMoneyHabit(money[0]);
+    });
+    HabitService.findByArea("Corpo").then((body) => {
+      setBodyHabit(body[0]);
+    });
+    HabitService.findByArea("Humor").then((fun) => {
+      setFunHabit(fun[0]);
+    });
+
+    ChangeNavigationService.checkShowHome(1)
+    .then((showHome) => {
+      const formDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+      const checkDays = new Date(formDate) - new Date(showHome.appStartData) + 1;
+      setRobotDaysLife(checkDays.toString().padStart(2, '0'));
+    })
+    .catch((err) => console.log(err));
+  }, [route.params]);
 
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={{alignItems: 'center'}}>
           <Text style={styles.dailyCheck}>
-            ♥ 20 dias - ✔️ 80 checks
+            ♥ 20 {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80 checks
           </Text>
 
           <LifeStatus />
@@ -30,12 +59,7 @@ export default function Home() {
 
           {
             mindHabit ? (
-              <EditHabit
-                habit={mindHabit?.habitName}
-                frequency={`${mindHabit?.habitTime} - ${mindHabit?.habitFrequency}`}
-                habitArea={mindHabit?.habitArea}
-                checkColor="#90b7f3"
-              />
+              <EditHabit habit={mindHabit} checkColor="#90b7f3" />
             ) : (
 
               <CreateHabit habitArea="Mente" borderColor="#90b7f3" />
@@ -44,42 +68,24 @@ export default function Home() {
 
           {
             moneyHabit ? (
-              <EditHabit
-                habit={moneyHabit?.habitName}
-                frequency={`${moneyHabit?.habitTime} - ${moneyHabit?.habitFrequency}`}
-                habitArea={moneyHabit?.habitArea}
-                checkColor="#85bb65"
-              />
+              <EditHabit habit={moneyHabit} checkColor="#85bb65" />
             ) : (
-
               <CreateHabit habitArea="Financeiro" borderColor="#85bb65" />
             )
           }
 
           {
             bodyHabit ? (
-              <EditHabit
-                habit={bodyHabit?.habitName}
-                frequency={`${bodyHabit?.habitTime} - ${bodyHabit?.habitFrequency}`}
-                habitArea={bodyHabit?.habitArea}
-                checkColor="#ff0044"
-              />
+              <EditHabit habit={bodyHabit} checkColor="#ff0044" />
             ) : (
-
               <CreateHabit habitArea="Corpo" borderColor="#ff0044" />
             )
           }
 
           {
             funHabit ? (
-              <EditHabit
-                habit={funHabit?.habitName}
-                frequency={`${funHabit?.habitTime} - ${funHabit?.habitFrequency}`}
-                habitArea={funHabit?.habitArea}
-                checkColor="#fe7f23"
-              />
+              <EditHabit habit={funHabit} checkColor="#fe7f23" />
             ) : (
-
               <CreateHabit habitArea="Humor" borderColor="#fe7f23" />
             )
           }
