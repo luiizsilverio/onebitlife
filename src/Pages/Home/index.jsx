@@ -72,7 +72,13 @@ export default function Home({ route }) {
           </Text>
 
           <LifeStatus />
-          <StatusBar />
+
+          <StatusBar
+            mindHabit={mindHabit?.progressBar}
+            moneyHabit={moneyHabit?.progressBar}
+            bodyHabit={bodyHabit?.progressBar}
+            funHabit={funHabit?.progressBar}
+          />
 
           {
             mindHabit ? (
