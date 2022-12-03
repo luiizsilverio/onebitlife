@@ -8,6 +8,7 @@ import EditHabit from "../../components/EditHabit";
 import StatusBar from "../../components/StatusBar";
 import ChangeNavigationService from "../../services/ChangeNavigationService";
 import HabitService from "../../services/HabitService";
+import CheckService from "../../services/CheckService";
 
 export default function Home({ route }) {
   const [mindHabit, setMindHabit] = useState();
@@ -18,12 +19,13 @@ export default function Home({ route }) {
 
   const navigation = useNavigation();
   const today = new Date();
+  const excludeArea = route.params?.excludeArea;
+
 
   function handleExplanation() {
     navigation.navigate("explanation");
   }
 
-  const excludeArea = route.params?.excludeArea;
 
   useEffect(() => {
     HabitService.findByArea("Mente").then((mind) => {
@@ -63,6 +65,13 @@ export default function Home({ route }) {
     .catch((err) => console.log(err));
   }, [route.params]);
 
+
+  useEffect(() => {
+    CheckService.removeCheck(mindHabit, moneyHabit, bodyHabit, funHabit);
+    CheckService.checkStatus(mindHabit, moneyHabit, bodyHabit, funHabit);
+  }, [mindHabit, moneyHabit, bodyHabit, funHabit]);
+
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -71,7 +80,12 @@ export default function Home({ route }) {
             ♥ 20 {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80 checks
           </Text>
 
-          <LifeStatus />
+          <LifeStatus
+            mindHabit={mindHabit}
+            moneyHabit={moneyHabit}
+            bodyHabit={bodyHabit}
+            funHabit={funHabit}
+          />
 
           <StatusBar
             mindHabit={mindHabit?.progressBar}
