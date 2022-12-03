@@ -5,7 +5,9 @@ import MoneyIcon from "../../assets/icons/moneyIcon.png";
 import BodyIcon from "../../assets/icons/bodyIcon.png";
 import FunIcon from "../../assets/icons/funIcon.png";
 
-export default function StatusBar() {
+export default function StatusBar(props) {
+  const { mindHabit, moneyHabit, bodyHabit, funHabit } = props;
+
   return (
     <View style={styles.container}>
       <View style={styles.statusBarContainer}>
@@ -15,7 +17,7 @@ export default function StatusBar() {
         />
 
         <ProgressBar
-          progress={1}
+          progress={mindHabit}
           color="#90b7f3"
           style={styles.progress}
         />
@@ -28,7 +30,7 @@ export default function StatusBar() {
         />
 
         <ProgressBar
-          progress={0}
+          progress={moneyHabit}
           color="#85bb65"
           style={styles.progress}
         />
@@ -41,7 +43,7 @@ export default function StatusBar() {
         />
 
         <ProgressBar
-          progress={0}
+          progress={bodyHabit}
           color="#ff0044"
           style={styles.progress}
         />
@@ -54,7 +56,7 @@ export default function StatusBar() {
         />
 
         <ProgressBar
-          progress={0}
+          progress={funHabit}
           color="#fe7f23"
           style={styles.progress}
         />

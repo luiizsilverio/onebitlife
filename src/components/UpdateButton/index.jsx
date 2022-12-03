@@ -9,6 +9,7 @@ export default function UpdateButton(props) {
   const navigation = useNavigation();
 
   function handleDeleteHabit() {
+
     HabitService.deleteByName(habitArea)
       .then(() => {
         Alert.alert("Exclusão feita com sucesso");
