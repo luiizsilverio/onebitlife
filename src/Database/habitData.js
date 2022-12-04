@@ -62,20 +62,20 @@ const dataBody = [
     value: "Fazer 15 minutos de yoga",
   },
   {
-    key: "Fazer 30 minutos de yoga",
-    value: "Fazer 30 minutos de yoga",
+    key: "Pedalar por 30 minutos",
+    value: "Pedalar por 30 minutos",
   },
   {
-    key: "Fazer uma caminhada de 15 minutos",
-    value: "Fazer uma caminhada de 15 minutos",
+    key: "Pedalar por 60 minutos",
+    value: "Pedalar por 60 minutos",
+  },
+  {
+    key: "Fazer 25 minutos de esteira",
+    value: "Fazer 25 minutos de esteira",
   },
   {
     key: "Fazer uma caminhada de 30 minutos",
     value: "Fazer uma caminhada de 30 minutos",
-  },
-  {
-    key: "Fazer 30 minutos de meditação",
-    value: "Fazer 30 minutos de meditação",
   },
 ];
 

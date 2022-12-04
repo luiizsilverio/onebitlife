@@ -19,7 +19,7 @@ export default function Home({ route }) {
   const [funHabit, setFunHabit] = useState();
   const [robotDaysLife, setRobotDaysLife] = useState();
   const [checks, setChecks] = useState();
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
 
   const navigation = useNavigation();
   const excludeArea = route.params?.excludeArea;
@@ -35,7 +35,7 @@ export default function Home({ route }) {
       tx.executeSql("DROP TABLE habits;");
       tx.executeSql("DROP TABLE change_navigation;");
     });
-    navigation.navigate("Start");
+    navigation.navigate("start");
   }
 
   useEffect(() => {

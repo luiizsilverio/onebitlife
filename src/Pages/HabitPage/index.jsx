@@ -37,8 +37,7 @@ export default function HabitPage({ route }) {
 
   const habitCreated = new Date();
   const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth()+1}-${habitCreated.getDate()}`;
-  // const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth()+1}-18}`;
-  // console.log(formatDate)
+  // const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth()+1}-10}`;
 
   function handleCreateHabit() {
     if (!habitInput || !frequencyInput) {
