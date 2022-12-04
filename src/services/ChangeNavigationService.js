@@ -8,6 +8,9 @@ db.transaction((tx) => {
       console.log(error);
     }
   );
+  // tr.executeSql("DROP TABLE change_navigation;", [], () => {
+  //   console.log("Tabela deletada");
+  // })
 });
 
 const setShowHome = (obj) => {
