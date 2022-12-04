@@ -4,7 +4,7 @@
 ## Conteúdo
 * [Sobre a aplicação](#sobre-a-aplicação)
 * [Tecnologias](#hammer_and_wrench-tecnologias)
-* [Iniciando a Aplicação](#car_Iniciando-a-aplicação)
+* [Iniciando a Aplicação](#car_iniciando-a-aplicação)
 * [Screenshots](#camera_flash-screenshots)
 * [Licença](#balance_scale-licença)
 * [Contato](#email-contato)
@@ -34,7 +34,11 @@ $ npx expo start
 ```
 
 ## :camera_flash: Screenshots
-![](https://github.com/luiizsilverio/onebitlife/blob/main/src/assets/onebitlife.gif)
+<td>
+<tr>
+<img src="https://github.com/luiizsilverio/onebitlife/blob/main/src/assets/onebitlife.gif" style="height: 600px" />
+</tr>
+</td>
 
 ## :balance_scale: Licença
 Este projeto está licenciado sob a [licença MIT](LICENSE).
