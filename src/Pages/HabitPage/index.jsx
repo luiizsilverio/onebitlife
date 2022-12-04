@@ -37,6 +37,7 @@ export default function HabitPage({ route }) {
 
   const habitCreated = new Date();
   const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth()+1}-${habitCreated.getDate()}`;
+  // const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth()+1}-10}`;
 
   function handleCreateHabit() {
     if (!habitInput || !frequencyInput) {
@@ -69,6 +70,7 @@ export default function HabitPage({ route }) {
         daysWithoutChecks: 0,
         habitIsChecked: 0,
         progressBar: 1,
+        habitChecks: 0,
       }).then(() => {
         Alert.alert("Sucesso na criação do hábito!");
 

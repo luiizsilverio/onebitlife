@@ -1,3 +1,10 @@
+/*
+    1.0  - Máximo
+    0.5  - Médio
+    0.25 - Baixo
+    0.0  - Curto (acabou o game)
+*/
+
 function animationStatus(
   mindHabit,
   moneyHabit,
